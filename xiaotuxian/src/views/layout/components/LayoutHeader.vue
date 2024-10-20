@@ -1,5 +1,27 @@
 <script setup>
 
+import {getCategory} from '@/apis/layoutApi';
+import { onMounted } from 'vue';
+import { ref } from 'vue';
+
+
+const categoryList = ref([])
+
+const getList = async() => {
+    const res = await getCategory()
+   
+    categoryList.value = res.result
+    console.log(categoryList)
+}
+
+// 挂载生命周期调用api
+onMounted(
+   ()=>{
+    getList()
+}
+
+)
+
 </script>
 
 <template>
@@ -9,17 +31,9 @@
                 <RouterLink to="/">小兔鲜</RouterLink>
             </h1>
             <ul class="app-header-nav">
-                <li class="home">
-                    <RouterLink to="/">首页</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">居家</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">美食</RouterLink>
-                </li>
-                <li>
-                    <RouterLink to="/">服饰</RouterLink>
+
+                <li class="home" v-for="itme in categoryList" :key=itme.id>
+                    <RouterLink to="/">{{itme.name}}</RouterLink>
                 </li>
             </ul>
             <div class="search">
