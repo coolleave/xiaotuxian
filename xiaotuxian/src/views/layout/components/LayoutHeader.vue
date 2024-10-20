@@ -4,7 +4,7 @@ import {getCategory} from '@/apis/layoutApi';
 import { onMounted } from 'vue';
 import { ref } from 'vue';
 
-
+// 获取分类列表
 const categoryList = ref([])
 
 const getList = async() => {
