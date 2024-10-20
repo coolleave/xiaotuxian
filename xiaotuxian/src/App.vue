@@ -7,8 +7,14 @@ import {RouterView } from 'vue-router'
 
   <el-button type="primary">Primary</el-button>
   <RouterView />
+  <div class="test">
+    var 导入测试
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
+.test{
+  color: $priceColor;
+}
 </style>
