@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import layout from '@/views/layout.vue'
+import layout from '@/views/layout/index.vue'
 import login from '@/views/login.vue'
 import home from '@/views/home.vue'
 import catetory from '@/views/catetory.vue'
@@ -12,21 +12,21 @@ const router = createRouter({
       name: 'layout',
       component:layout,
       // 二级路由
-      children:[  
-        {
-          path:'',  // 空为默认
-          name:'home',
-          component:home
-        },
+      // children:[  
+      //   {
+      //     path:'',  // 空为默认
+      //     name:'home',
+      //     component:home
+      //   },
         
-        {
-          path:'catetory',
-          name:'catetory',
-          component:catetory
-        }
+      //   {
+      //     path:'catetory',
+      //     name:'catetory',
+      //     component:catetory
+      //   }
         
 
-      ]
+      // ]
     },
 
     {
