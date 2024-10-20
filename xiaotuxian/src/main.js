@@ -7,15 +7,9 @@ import App from './App.vue'
 import router from './router/index'
 
 
-// 测试axios
 
-import { getCategory } from '@/apis/apiTest'
 
-getCategory().then(res => { 
-    console.log(res)
-    console.log("测试api")
- }
-)
+
 
 
 const app = createApp(App)
