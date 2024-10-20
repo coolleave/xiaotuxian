@@ -30,6 +30,10 @@
 
 
 <style scoped lang="scss">
+*{
+  list-style: none;
+}
+
 .app-topnav {
   background: #333;
   ul {
