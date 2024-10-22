@@ -20,7 +20,7 @@ const {y} = useScroll(window)
 </script>
 
 <template>
-    <div>{{ y }}</div>
+  
     <!--关键步骤 :class="{show: y>78} "-->
   <div class="app-header-sticky" :class="{show: y>78}">
     <div class="container">
