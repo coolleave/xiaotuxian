@@ -4,23 +4,10 @@ import {getCategory} from '@/apis/layoutApi';
 import { onMounted } from 'vue';
 import { ref } from 'vue';
 
-// 获取分类列表
-const categoryList = ref([])
 
-const getList = async() => {
-    const res = await getCategory()
-   
-    categoryList.value = res.result
-    console.log(categoryList)
-}
-
-// 挂载生命周期调用api
-onMounted(
-   ()=>{
-    getList()
-}
-
-)
+// 导入pinia
+import {useCategoryStore} from '@/stores/category'
+const getCategoryList = useCategoryStore()
 
 </script>
 
@@ -32,7 +19,7 @@ onMounted(
             </h1>
             <ul class="app-header-nav">
 
-                <li class="home" v-for="itme in categoryList" :key=itme.id>
+                <li class="home" v-for="itme in getCategoryList.categoryList" :key=itme.id>
                     <RouterLink to="/">{{itme.name}}</RouterLink>
                 </li>
             </ul>

@@ -1,34 +1,21 @@
 <script setup>
 
-import {getCategory} from '@/apis/layoutApi';
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+// 导入pinia,防止重复调用api，api在父组件调用
+import {useCategoryStore} from '@/stores/category'
+const getCategoryList = useCategoryStore()
+
 
 // 吸顶式导航 交互
 // 导入包
 import { useScroll } from '@vueuse/core'
 
+
+
 // 获取垂直滑动距离
 const {y} = useScroll(window)
 
 
-// 获取分类列表
-const categoryList = ref([])
 
-const getList = async() => {
-    const res = await getCategory()
-   
-    categoryList.value = res.result
-    console.log(categoryList)
-}
-
-// 挂载生命周期调用api
-onMounted(
-   ()=>{
-    getList()
-}
-
-)
  
 </script>
 
@@ -40,7 +27,7 @@ onMounted(
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
       <ul class="app-header-nav">
-        <li class="home" v-for="itme in categoryList" :key=itme.id>
+        <li class="home" v-for="itme in getCategoryList.categoryList" :key=itme.id>
                     <RouterLink to="/">{{itme.name}}</RouterLink>
                 </li>
       </ul>
