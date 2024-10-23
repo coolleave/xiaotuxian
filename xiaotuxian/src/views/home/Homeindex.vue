@@ -5,11 +5,12 @@ import banner from './components/HomeBanner.vue';
 import goods from './components/HomeGoods.vue';
 import hot from './components/HomeHot.vue';
 import product from './components/HomeProduct.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
+
 <div class="container">
-    
     <category/>
     <banner/>
 </div>
@@ -22,5 +23,9 @@ import product from './components/HomeProduct.vue';
 </template>
 
 <style scoped>
-
+.container{
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
 </style>
