@@ -1,5 +1,5 @@
 <script setup>
-import { getBannerApi } from '@/apis/bannerApi';
+import { getBannerApi } from '@/apis/homeApi';
 import { onMounted } from 'vue';
 import { ref } from 'vue';
 // 发送轮播图片url请求
@@ -7,11 +7,7 @@ import { ref } from 'vue';
 // 准备数据
 const bannerUrl = ref([])
 const  getBanner = async()=>{
-
-    
     bannerUrl.value = await getBannerApi()
-    console.log(bannerUrl);
-    
 }
 
 onMounted(()=>{
