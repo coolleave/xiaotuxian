@@ -24,7 +24,7 @@ onMounted(()=>{
       <ul class="goods-list">
         <li v-for="item in hotList.result" :key="item.id">
           <RouterLink to="/">
-            <img :src="item.picture" alt="">
+            <img v-img-lazy="item.picture" alt="">
             <p class="name">{{ item.title }}</p>
             <p class="desc">{{ item.alt }}</p>
           </RouterLink>
