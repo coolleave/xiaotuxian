@@ -6,13 +6,12 @@ import { ref } from 'vue';
 // 准备数据，发送请求
 
 const productList = ref([])
-const getProduct = async()=>{
-    productList.value =await getProductApi()
+const getProduct = async () => {
+  productList.value = await getProductApi()
 }
 
-onMounted(()=>{
-    getProduct()
-    
+onMounted(() => {
+  getProduct()
 })
 </script>
 
@@ -30,9 +29,9 @@ onMounted(()=>{
         <ul class="goods-list">
           <li v-for="good in item.goods" :key="good.id">
             <RouterLink to="/" class="goods-item">
-              <img :src="good.picture" alt="" />
+              <img :src="good.picture" />
               <p class="name ellipsis">{{ good.name }}</p>
-              <p class="desc ellipsis">{{ good.desc }}</p>
+              <p class="desc ellipsis" :title="good.desc">{{ good.desc }}</p>
               <p class="price">&yen;{{ good.price }}</p>
             </RouterLink>
           </li>
@@ -44,8 +43,10 @@ onMounted(()=>{
 
 <style scoped lang='scss'>
 .home-product {
+
   background: #fff;
   margin-top: 20px;
+
   .sub {
     margin-bottom: 2px;
 
@@ -67,9 +68,10 @@ onMounted(()=>{
 
   .box {
     display: flex;
+    justify-content: space-around;
 
     .cover {
-      width: 240px;
+      width: 640px;
       height: 610px;
       margin-right: 10px;
       position: relative;
@@ -80,7 +82,7 @@ onMounted(()=>{
       }
 
       .label {
-        width: 188px;
+        width: 288px;
         height: 66px;
         display: flex;
         font-size: 18px;
@@ -93,6 +95,7 @@ onMounted(()=>{
         transform: translate3d(0, -50%, 0);
 
         span {
+
           text-align: center;
 
           &:first-child {
@@ -144,6 +147,7 @@ onMounted(()=>{
       img {
         width: 160px;
         height: 160px;
+
       }
 
       p {
@@ -156,12 +160,16 @@ onMounted(()=>{
 
       .desc {
         color: #999;
-        height: 29px;
+        height: 29px; // 增加高度
+        overflow: hidden; // 添加这行
+        text-overflow: ellipsis; // 添加这行
+        white-space: nowrap; // 添加这行以防换行
       }
 
       .price {
         color: $priceColor;
         font-size: 20px;
+
       }
     }
   }

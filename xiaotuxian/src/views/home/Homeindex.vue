@@ -14,12 +14,9 @@ import product from './components/HomeProduct.vue';
     <category/>
     <banner/>
 </div>
-
-
     <goods/>
     <hot/>
     <product/>
-    
 </template>
 
 <style scoped>
