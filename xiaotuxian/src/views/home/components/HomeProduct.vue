@@ -1,8 +1,10 @@
 <script setup>
 import { onMounted } from 'vue';
 import HomePanel from './HomePanel.vue'
+import goodsItme from './goodsItme.vue'
 import { getProductApi } from '@/apis/homeApi';
 import { ref } from 'vue';
+
 // 准备数据，发送请求
 
 const productList = ref([])
@@ -28,12 +30,9 @@ onMounted(() => {
         </RouterLink>
         <ul class="goods-list">
           <li v-for="good in item.goods" :key="good.id">
-            <RouterLink to="/" class="goods-item">
-              <img :src="good.picture" />
-              <p class="name ellipsis">{{ good.name }}</p>
-              <p class="desc ellipsis" :title="good.desc">{{ good.desc }}</p>
-              <p class="price">&yen;{{ good.price }}</p>
-            </RouterLink>
+            <goodsItme :good="good">
+
+            </goodsItme>
           </li>
         </ul>
       </div>

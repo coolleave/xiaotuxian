@@ -70,6 +70,7 @@
     overflow: hidden;
     background-color: #f5f5f5;
     padding-top: 20px;
+    margin-top: 30px;
   
     .contact {
       background: #fff;
