@@ -2,21 +2,36 @@
 import { getCategoryById } from '@/apis/category'
 import { onMounted } from 'vue';
 import { ref } from 'vue';
+// 轮播图api
+import { getBannerApi } from '@/apis/homeApi';
 
+// 面包屑
 // 引入useRoute，并实例化，获取路径传入的参数id
 import { useRoute } from 'vue-router';
 const route = useRoute()
-
-
 const categoryData = ref({})
 const getCategorData = async () => {
     const res = await getCategoryById(route.params.id)
     categoryData.value = res.result
 }
-
-onMounted(()=>{
+onMounted(() => {
     getCategorData()
 })
+
+
+
+// 发送轮播图片url请求
+
+// 准备数据
+const bannerUrl = ref([])
+const getBanner = async () => {
+    bannerUrl.value = await getBannerApi()
+}
+
+onMounted(() => {
+    getBanner()
+})
+
 </script>
 
 <template>
@@ -29,6 +44,14 @@ onMounted(()=>{
                     <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
+        </div>
+        <!-- 商品轮播图 -->
+        <div class="home-banner">
+            <el-carousel height="500px">
+                <el-carousel-item v-for="item in bannerUrl.result" :key="item.id">
+                    <img :src="item.imgUrl" alt="">
+                </el-carousel-item>
+            </el-carousel>
         </div>
     </div>
 </template>
@@ -112,4 +135,19 @@ onMounted(()=>{
         padding: 25px 0;
     }
 }
+// 轮播图
+.home-banner {
+    
+    width: 1240px;
+    height: 500px;
+    // 左右居中
+    margin: 0 auto;
+  //   position: absolute;
+
+  
+    img {
+      width: 100%;
+      height: 500px;
+    }
+  }
 </style>
