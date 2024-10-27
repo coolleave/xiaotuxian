@@ -28,7 +28,7 @@ const {y} = useScroll(window)
       <!-- 导航区域 -->
       <ul class="app-header-nav">
         <li class="home" v-for="itme in getCategoryList.categoryList" :key=itme.id>
-          <RouterLink :to="`/category/${itme.id}`">{{itme.name}}</RouterLink>
+          <RouterLink exact-active-class="active" :to="`/category/${itme.id}`">{{itme.name}}</RouterLink>
                 </li>
       </ul>
 
@@ -102,6 +102,8 @@ const {y} = useScroll(window)
   position: relative;
   z-index: 998;
 
+  
+
   li {
     margin-right: 40px;
     width: 38px;
@@ -112,6 +114,7 @@ const {y} = useScroll(window)
       line-height: 32px;
       height: 32px;
       display: inline-block;
+      color: #000;
 
       &:hover {
         color: $xtxColor;

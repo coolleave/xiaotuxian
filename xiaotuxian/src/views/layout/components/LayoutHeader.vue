@@ -2,7 +2,7 @@
 
 
 // 导入pinia
-import {useCategoryStore} from '@/stores/category'
+import { useCategoryStore } from '@/stores/category'
 const getCategoryList = useCategoryStore()
 
 </script>
@@ -17,7 +17,7 @@ const getCategoryList = useCategoryStore()
 
                 <li class="home" v-for="itme in getCategoryList.categoryList" :key=itme.id>
                     <!-- 动态路由 -->
-                    <RouterLink :to="`/category/${itme.id}`">{{itme.name}}</RouterLink>
+                    <RouterLink exact-active-class="active" :to="`/category/${itme.id}`">{{ itme.name }}</RouterLink>
                 </li>
             </ul>
             <div class="search">
@@ -69,6 +69,7 @@ const getCategoryList = useCategoryStore()
                 line-height: 32px;
                 height: 32px;
                 display: inline-block;
+                color: #000;
 
                 &:hover {
                     color: $xtxColor;
