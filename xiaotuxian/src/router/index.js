@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import layout from '@/views/layout/index.vue'
 import login from '@/views/login.vue'
 import home from '@/views/home/Homeindex.vue'
+import category from '@/views/categoty/index.vue'
 
 
 const router = createRouter({
@@ -18,7 +19,12 @@ const router = createRouter({
           name:'home',
           component:home
         },
+        {
+          path:'category/:id',  // 根据id导航
+          name:'category',
+          component:category
 
+        },
         {
           path: '/:catchAll(.*)',
           redirect: '/'
