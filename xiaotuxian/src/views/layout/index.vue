@@ -22,7 +22,7 @@ onMounted(()=>{
     <Nav />
     <NavFixed />
     <Header />
-    <RouterView />
+    <RouterView :key="$route.fullPath"/>
     <Footer />
 </template>
 

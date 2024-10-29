@@ -1,37 +1,15 @@
 <script setup>
-import { getCategoryById } from '@/apis/category'
-import { onMounted } from 'vue';
-import { ref } from 'vue';
 import goodsItme from '@/views/home/components/goodsItme.vue';
-// 轮播图api
-import { getBannerApi } from '@/apis/homeApi';
-
-// 面包屑
-// 引入useRoute，并实例化，获取路径传入的参数id
-import { useRoute } from 'vue-router';
-const route = useRoute()
-const categoryData = ref({})
-const getCategorData = async () => {
-    const res = await getCategoryById(route.params.id)
-    categoryData.value = res.result
-}
-onMounted(() => {
-    getCategorData()
-})
+import {useCategory} from './composables/useCategory'
+import {useBanner} from './composables/useBanner'
 
 
 
-// 发送轮播图片url请求
+// 调用封装函数
+ 
+const {bannerUrl} = useBanner()
+const {categoryData} = useCategory()
 
-// 准备数据
-const bannerUrl = ref([])
-const getBanner = async () => {
-    bannerUrl.value = await getBannerApi()
-}
-
-onMounted(() => {
-    getBanner()
-})
 
 </script>
 
@@ -60,7 +38,7 @@ onMounted(() => {
             <ul>
                 <li v-for="i in categoryData.children" :key="i.id">
                     <RouterLink to="/">
-                        <img :src="i.picture" />
+                        <img v-img-lazy="i.picture" />
                         <p>{{ i.name }}</p>
                     </RouterLink>
                 </li>
