@@ -3,6 +3,9 @@ import { getCategoryFilterAPI } from '@/apis/category.js'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
+import { getSubCategoryAPI } from '@/apis/category'
+import goodsItme from '@/views/home/components/goodsItme.vue'
+
 // 二级分类
 const route = useRoute()
 const categroyDate = ref({})
@@ -10,12 +13,28 @@ const categroyDate = ref({})
 const getCategoryDate = async () => {
 
   const res = await getCategoryFilterAPI(route.params.id)
-  
   categroyDate.value = res.result
 }
 
 onMounted(() => {
   getCategoryDate()
+})
+
+// 获取孙类商品数据
+const categoryList = ref({})
+const data = ref({
+  categoryId: route.params.id,
+  page: 1,
+  pageSize: 20,
+  sortField: 'publishTime'
+})
+const getCategoryList = async() => {
+  const resList = await getSubCategoryAPI(data)
+  categoryList.value = resList.result.items
+
+}
+onMounted(() => {
+  getCategoryList()
 })
 </script>
 
@@ -38,6 +57,9 @@ onMounted(() => {
       </el-tabs>
       <div class="body">
         <!-- 商品列表-->
+        <goodsItme v-for="good in categoryList" :good="good" :key="good.id"/>
+
+  
       </div>
     </div>
   </div>

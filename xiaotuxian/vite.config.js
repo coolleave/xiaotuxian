@@ -28,7 +28,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'modern-compiler',
+        api: 'modern-compiler', // 修改api调用方式
         additionalData: `
         @use "@/styles/element/index.scss" as *;
         @use "@/styles/var.scss" as *;
