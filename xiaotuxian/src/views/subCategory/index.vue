@@ -26,12 +26,18 @@ const data = ref({
   categoryId: route.params.id,
   page: 1,
   pageSize: 20,
-  sortField: 'publishTime'
+  sortField: "publishTime"
 })
-const getCategoryList = async() => {
-  const resList = await getSubCategoryAPI(data)
+const getCategoryList = async () => {
+  const resList = await getSubCategoryAPI(data.value)
   categoryList.value = resList.result.items
 
+}
+
+const tabChange = () => {
+  console.log("内容已经切换", data.value.sortField);
+  data.value.page = 1
+  // getCategoryList
 }
 onMounted(() => {
   getCategoryList()
@@ -50,16 +56,16 @@ onMounted(() => {
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs>
+      <el-tabs v-model="data.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
       <div class="body">
         <!-- 商品列表-->
-        <goodsItme v-for="good in categoryList" :good="good" :key="good.id"/>
+        <goodsItme v-for="good in categoryList" :good="good" :key="good.id" />
 
-  
+
       </div>
     </div>
   </div>
