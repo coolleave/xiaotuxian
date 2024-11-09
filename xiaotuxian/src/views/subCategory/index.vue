@@ -35,13 +35,25 @@ const getCategoryList = async () => {
 }
 
 const tabChange = () => {
-  console.log("内容已经切换", data.value.sortField);
   data.value.page = 1
-  // getCategoryList
 }
 onMounted(() => {
   getCategoryList()
 })
+
+// 商品滚动无限加载
+const disable = ref(false)  // 是否禁用
+const loadGood = async()=>{
+  data.value.page++
+  const res = await getSubCategoryAPI(data.value)
+  // 如果滚动到底了，就禁用
+  if(res.result.items.length === 0){
+    disable.value = true
+  }
+  
+  // 列表的展开运算符
+  categoryList.value = [...categoryList.value,...res.result.items]
+}
 </script>
 
 <template>
@@ -61,7 +73,8 @@ onMounted(() => {
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <!-- 商品滚动无限加载 -->
+      <div class="body" v-infinite-scroll="loadGood" :infinite-scroll-disabled="disable">
         <!-- 商品列表-->
         <goodsItme v-for="good in categoryList" :good="good" :key="good.id" />
 
