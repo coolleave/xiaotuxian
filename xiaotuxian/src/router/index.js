@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import layout from '@/views/layout/index.vue'
-import login from '@/views/login.vue'
 import home from '@/views/home/Homeindex.vue'
 import category from '@/views/category/index.vue'
 import subCategory from '@/views/subCategory/index.vue'
-
+import detail from '@/views/detail/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +29,10 @@ const router = createRouter({
           name:'subCategory',
           component:subCategory
         },
+        {
+          path:'detail/:id',
+          component:detail
+        }
         // {
         //   path: '/:catchAll(.*)',
         //   redirect: '/'
@@ -39,11 +42,7 @@ const router = createRouter({
       ]
     },
 
-    {
-      path:'/login',
-      name:'login',
-      component:login
-    }
+
  
   ],
   // 配置滚动路由
