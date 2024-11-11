@@ -32,7 +32,13 @@ const router = createRouter({
         {
           path:'detail/:id',
           component:detail
-        }
+        },
+
+        
+
+
+
+
         // {
         //   path: '/:catchAll(.*)',
         //   redirect: '/'
