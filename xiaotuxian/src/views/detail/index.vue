@@ -130,8 +130,8 @@ onMounted(() => {
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-              <goodsHot/>
-              <goodsHot/>
+              <goodsHot :hot-type="1"/>
+              <goodsHot :hot-type="2"/>
             </div>
           </div>
         </div>
