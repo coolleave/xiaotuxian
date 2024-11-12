@@ -2,9 +2,12 @@
 // 商品详情页面
 
 import { useRoute } from 'vue-router'
-import { getGoodsApi } from '@/apis/goods'
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { getGoodsApi } from '@/apis/goodsApi'
+import { onMounted,ref } from 'vue';
+import goodsHot from './components/goodsHot.vue';
+
+
+
 
 const route = useRoute()
 const goods = ref({})
@@ -127,7 +130,8 @@ onMounted(() => {
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-
+              <goodsHot/>
+              <goodsHot/>
             </div>
           </div>
         </div>
