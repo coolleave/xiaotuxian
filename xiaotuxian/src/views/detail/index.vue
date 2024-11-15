@@ -3,8 +3,9 @@
 
 import { useRoute } from 'vue-router'
 import { getGoodsApi } from '@/apis/goodsApi'
-import { onMounted,ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import goodsHot from './components/goodsHot.vue';
+import imageView from '@/components/imageView/index.vue'
 
 
 
@@ -36,9 +37,9 @@ onMounted(() => {
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item :to="`/category/${goods.categories[1].id}`">{{ goods.categories[1].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="`/category/sub/${goods.categories[0].id}`">{{goods.categories[0].name }}
+          <el-breadcrumb-item :to="`/category/sub/${goods.categories[0].id}`">{{ goods.categories[0].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item>{{goods.name}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ goods.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品信息 -->
@@ -47,7 +48,7 @@ onMounted(() => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-
+              <imageView />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -74,11 +75,11 @@ onMounted(() => {
             </div>
             <div class="spec">
               <!-- 商品信息区 -->
-              <p class="g-name"> {{goods.name}} </p>
-              <p class="g-desc">{{goods.desc}} </p>
+              <p class="g-name"> {{ goods.name }} </p>
+              <p class="g-desc">{{ goods.desc }} </p>
               <p class="g-price">
-                <span>{{goods.oldPrice}}</span>
-                <span> {{goods.price}}</span>
+                <span>{{ goods.oldPrice }}</span>
+                <span> {{ goods.price }}</span>
               </p>
               <div class="g-service">
                 <dl>
@@ -120,7 +121,7 @@ onMounted(() => {
                   <ul class="attrs">
                     <li v-for="item in goods.details.properties" :key="item.value">
                       <span class="dt">{{ item.name }}</span>
-                      <span class="dd">{{item.value}}</span>
+                      <span class="dd">{{ item.value }}</span>
                     </li>
                   </ul>
                   <!-- 图片 -->
@@ -130,8 +131,8 @@ onMounted(() => {
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-              <goodsHot :hot-type="1"/>
-              <goodsHot :hot-type="2"/>
+              <goodsHot :hot-type="1" />
+              <goodsHot :hot-type="2" />
             </div>
           </div>
         </div>
