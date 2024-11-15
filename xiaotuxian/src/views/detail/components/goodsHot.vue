@@ -96,6 +96,7 @@ onMounted(()=>{
     .desc {
       color: #999;
       height: 29px;
+      display: inline-block;
     }
 
     .price {
