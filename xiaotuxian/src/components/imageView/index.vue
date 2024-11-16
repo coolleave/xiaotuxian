@@ -1,5 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useMouseInElement } from '@vueuse/core'
+
+// 小图切换大图
 // 图片列表
 const imageList = [
     "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
@@ -14,6 +17,31 @@ const arctiveIndex = ref(0)
 const mouseArctive = (i) => {
     arctiveIndex.value = i
 }
+
+// 大图预览
+const target = ref(null)
+// 遮罩200x200px
+const top = ref(0)  // 遮罩上边界值
+const left = ref(0)
+const { elementX, elementY, isOutside } = useMouseInElement(target)
+
+watch([elementX, elementY], () => {
+    // console.log(elementX.value,elementY.value);
+    if (!isOutside.value) {
+        // 判断边界
+        if (elementX.value < 100) { left.value = 0 }
+        if (elementX.value > 300) { left.value = 200 }
+        if (elementY.value < 100) { top.value = 0 }
+        if (elementY.value > 300) { top.value = 200 }
+        // 当鼠标在盒子内的时候
+        if (elementX.value > 100 && elementX.value < 300) { left.value = elementX.value - 100 }
+        if (elementY.value > 100 && elementY.value < 300) { top.value = elementY.value - 100 }
+        console.log(elementX.value, elementY.value);
+        console.log(top.value, left.value);
+
+    }
+
+})
 </script>
 
 
@@ -23,7 +51,7 @@ const mouseArctive = (i) => {
         <div class="middle" ref="target">
             <img :src="imageList[arctiveIndex]" alt="" />
             <!-- 蒙层小滑块 -->
-            <div class="layer" :style="{ left: `0px`, top: `0px` }"></div>
+            <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
         </div>
         <!-- 小图列表 -->
         <ul class="small">
