@@ -5,8 +5,8 @@ import { useRoute } from 'vue-router'
 import { getGoodsApi } from '@/apis/goodsApi'
 import { onMounted, ref } from 'vue';
 import goodsHot from './components/goodsHot.vue';
-import imageView from '@/components/imageView/index.vue'
-
+// import imageView from '@/components/imageView/index.vue'
+// import xtxsku from '@/components/XtxSku/index.vue'
 
 
 
@@ -48,7 +48,7 @@ onMounted(() => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <imageView />
+              <xtxImageView />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -97,7 +97,7 @@ onMounted(() => {
                 </dl>
               </div>
               <!-- sku组件 -->
-
+                <xtxSku :goods="goods"/>
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->
