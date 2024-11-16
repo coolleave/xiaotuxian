@@ -25,6 +25,11 @@ const top = ref(0)  // 遮罩上边界值
 const left = ref(0)
 const { elementX, elementY, isOutside } = useMouseInElement(target)
 
+// 放大之后的图的坐标
+const positionX = ref(0)
+const positionY = ref(0)
+
+
 watch([elementX, elementY], () => {
     // console.log(elementX.value,elementY.value);
     if (!isOutside.value) {
@@ -36,10 +41,11 @@ watch([elementX, elementY], () => {
         // 当鼠标在盒子内的时候
         if (elementX.value > 100 && elementX.value < 300) { left.value = elementX.value - 100 }
         if (elementY.value > 100 && elementY.value < 300) { top.value = elementY.value - 100 }
-        console.log(elementX.value, elementY.value);
-        console.log(top.value, left.value);
-
     }
+
+    positionX.value = -left.value*2
+    positionY.value = -top.value*2
+
 
 })
 </script>
@@ -51,7 +57,7 @@ watch([elementX, elementY], () => {
         <div class="middle" ref="target">
             <img :src="imageList[arctiveIndex]" alt="" />
             <!-- 蒙层小滑块 -->
-            <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
+            <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }" v-show="!isOutside"></div>
         </div>
         <!-- 小图列表 -->
         <ul class="small">
@@ -63,11 +69,11 @@ watch([elementX, elementY], () => {
         <!-- 放大镜大图 -->
         <div class="large" :style="[
             {
-                backgroundImage: `url(${imageList[0]})`,
-                backgroundPositionX: `0px`,
-                backgroundPositionY: `0px`,
+                backgroundImage: `url(${imageList[arctiveIndex]})`,
+                backgroundPositionX: `${positionX}px`,
+                backgroundPositionY: `${positionY}px`,
             },
-        ]" v-show="false"></div>
+        ]" v-show="!isOutside"></div>
     </div>
 </template>
 
