@@ -1,5 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import {LoginApi} from '@/apis/userApi'
+
+// 消息弹窗样式
+import 'element-plus/es/components/message/style/css'
+import {ElMessage}  from 'element-plus'
+
+import { useRouter } from 'vue-router';
 // 表单数据验证
 
 // 表单对象
@@ -9,6 +16,11 @@ const form = ref({
     agree:true
 })
 
+// 结构账号密码
+
+
+// 路由跳转
+const router = useRouter()
 // 表单规则
 const rules = {
     account: [
@@ -35,10 +47,17 @@ const rules = {
 // 统一规则校验
 const formRef = ref(null)
 const doLogin = ()=>{
-    formRef.value.validate((valid)=>{
-        console.log(valid);
+    formRef.value.validate(async (valid)=>{
+    const {account,password} = form.value
+    // console.log(account,password);
+    
         if(valid){
             // TODO Login
+            const res = await LoginApi({account,password})
+
+            
+            ElMessage({type:'success',message:"登录成功"})
+            router.replace('/')
         }
     })
 }
@@ -78,8 +97,8 @@ const doLogin = ()=>{
                                 <el-checkbox size="large" v-model="form.agree">
                                     我已同意隐私条款和服务条款
                                 </el-checkbox>
-                            </el-form-item>
-                            <el-button size="large" class="subBtn">点击登录</el-button>
+                            </el-form-item>``
+                            <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
                         </el-form>
                     </div>
                 </div>
