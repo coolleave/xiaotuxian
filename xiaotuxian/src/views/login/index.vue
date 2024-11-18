@@ -18,6 +18,7 @@ const rules = {
         { required: true, message: '密码不能为空', trigger: 'blur' },
         { max: 14, min: 6, message: '密码要在6-14位之间', trigger: 'blur' }
     ],
+    // 自定义规则校验，勾选协议校验
     agree:[
         {
             validator:(rule,value,callback)=>{
@@ -29,6 +30,17 @@ const rules = {
             }
         }
     ]
+}
+
+// 统一规则校验
+const formRef = ref(null)
+const doLogin = ()=>{
+    formRef.value.validate((valid)=>{
+        console.log(valid);
+        if(valid){
+            // TODO Login
+        }
+    })
 }
 </script>
 
@@ -54,7 +66,7 @@ const rules = {
                 </nav>
                 <div class="account-box">
                     <div class="form">
-                        <el-form :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
+                        <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
                             <el-form-item prop="account" label="账户">
                                 <el-input v-model="form.account" />
                             </el-form-item>
