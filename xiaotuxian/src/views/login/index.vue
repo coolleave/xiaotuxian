@@ -5,8 +5,10 @@ import {LoginApi} from '@/apis/userApi'
 // 消息弹窗样式
 import 'element-plus/es/components/message/style/css'
 import {ElMessage}  from 'element-plus'
-
 import { useRouter } from 'vue-router';
+
+import {useUserStore} from '@/stores/user'
+
 // 表单数据验证
 
 // 表单对象
@@ -53,14 +55,18 @@ const doLogin = ()=>{
     
         if(valid){
             // TODO Login
-            const res = await LoginApi({account,password})
-
+            // const res = await LoginApi({account,password})
+            
+            await uesrStore.getUserInfo({account,password})
             
             ElMessage({type:'success',message:"登录成功"})
             router.replace('/')
         }
     })
 }
+
+// pinia 状态管理
+const uesrStore = useUserStore()
 </script>
 
 
