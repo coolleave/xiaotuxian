@@ -3,6 +3,8 @@ import axios from "axios";
 import 'element-plus/es/components/message/style/css'
 import {ElMessage}  from 'element-plus'
 
+import { useUserStore } from "@/stores/user";
+
 
 const httpInstance = axios.create({
     baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
@@ -12,6 +14,11 @@ const httpInstance = axios.create({
 // 添加请求拦截器
 httpInstance.interceptors.request.use(config => {
     // 在发送请求之前做些什么
+    const userStore = useUserStore() 
+    if(userStore.userInfo.token){
+        const token = userStore.userInfo.token
+        config.headers.Authorization = `Bearer ${token}`
+    }
     return config;
 },
     // 对请求错误做些什么
