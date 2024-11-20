@@ -4,7 +4,7 @@ import 'element-plus/es/components/message/style/css'
 import {ElMessage}  from 'element-plus'
 
 import { useUserStore } from "@/stores/user";
-
+import router from "@/router";
 
 const httpInstance = axios.create({
     baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
@@ -30,6 +30,11 @@ httpInstance.interceptors.response.use(res => {   // 2xx 范围内的状态码�
     return res.data;       // 对响应数据做点什么
 }, e => {  // 超出 2xx 范围的状态码都会触发该函数。
     ElMessage({type:'warning',message:e.response.data.message})
+    if(e.response.status === 401){
+        const userStore = useUserStore()
+        userStore.clearUserInfo()
+        router.push('/login')
+    }
     return Promise.reject(e);   // 对响应错误做点什么
 });
 
