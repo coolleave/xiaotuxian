@@ -16,4 +16,8 @@ export const useUserStore = defineStore('user',()=>{
         userInfo,
         getUserInfo
     }
-})
+},
+{
+    persist:true  // 使用pinia组件进行持久化保存
+}
+)

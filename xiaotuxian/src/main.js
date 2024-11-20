@@ -8,11 +8,20 @@ import router from './router/index'
 import {directivePlugin} from '@/directives/directivePlugin'
 
 import {componentPlugin} from '@/components/index.js'
+
+// pinia 数据持久化
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+
 const app = createApp(App)
-app.use(createPinia())
+
+const pinia = createPinia()
+// 应用pinia插件
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
 app.use(router)
 // 应用全局指令
 app.use(directivePlugin)
-
+// 全局组件插件
 app.use(componentPlugin)
 app.mount('#app')
