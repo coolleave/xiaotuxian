@@ -12,7 +12,5 @@ import {RouterView } from 'vue-router'
 
 <style scoped lang="scss">
 
-.test{
-  color: $priceColor;
-}
+
 </style>
