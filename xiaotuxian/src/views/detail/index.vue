@@ -5,8 +5,11 @@ import { useRoute } from 'vue-router'
 import { getGoodsApi } from '@/apis/goodsApi'
 import { onMounted, ref } from 'vue';
 import goodsHot from './components/goodsHot.vue';
-// import imageView from '@/components/imageView/index.vue'
+import { ElMessage } from 'element-plus';
+import { useCartStore } from '@/stores/cart';
+// import imageView from '@/components/imageView/index.vue'  // 已经全局组件化
 // import xtxsku from '@/components/XtxSku/index.vue'
+
 
 
 
@@ -25,6 +28,38 @@ onMounted(() => {
   getGoods()
 })
 
+// 商品数量
+const count  = ref(1)
+const changeCount = (value)=>{
+  count.value = value
+}
+
+// 判断是否选择规格
+let skuObj = {}
+
+const changeSku = (sku)=>{
+  skuObj = sku
+}
+
+// 添加购物车
+const cartStore = useCartStore()
+const addCart = ()=>{
+  if(skuObj?.skuId){
+    cartStore.addCart({
+      id:goods.value.id,
+      name:goods.value.name,
+      picture:goods.value.mainPictures[0],
+      price:goods.value.price,
+      count:count.value,
+      skuId:skuObj.skuId,
+      attrsText:skuObj.specsText,
+      selected:true
+    })
+  }else{
+    // 没选规格
+    ElMessage.warning('请选择规格')
+  }
+}
 
 </script>
 
@@ -97,12 +132,12 @@ onMounted(() => {
                 </dl>
               </div>
               <!-- sku组件 -->
-                <xtxSku :goods="goods"/>
+              <xtxSku :goods="goods" @change="changeSku"/>
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" :min="1" @change="changeCount" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCart">
                   加入购物车
                 </el-button>
               </div>
