@@ -103,8 +103,6 @@ export const useCartStore = defineStore('cart', () => {
         cartList.value = []
     }
 
-
-
     return {
         cartList,
         allCount,
@@ -116,7 +114,8 @@ export const useCartStore = defineStore('cart', () => {
         addCart,
         delCart,
         selAll,
-        clearCart
+        clearCart,
+        updateCart
     }
 },
     {

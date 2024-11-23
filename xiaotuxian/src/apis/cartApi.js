@@ -29,3 +29,12 @@ export const delCartApi = (ids)=>{
         }
     })
 }
+
+// 将本地购物车合并到登录后的账号去
+export const mergeCartApi = (data)=>{
+    return httpInstance({
+        url:'/member/cart/merge',
+        method:'POST',
+        data
+    })
+}
