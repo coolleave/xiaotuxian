@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useUserStore } from "./user";
-import {insertCartApi,getCartApi} from '@/apis/cartApi'
-    import { formContextKey } from "element-plus";
+import { insertCartApi, getCartApi, delCartApi } from '@/apis/cartApi'
 
 export const useCartStore = defineStore('cart', () => {
     // state
@@ -47,18 +46,22 @@ export const useCartStore = defineStore('cart', () => {
     )
 
     // action
+    // 查询购物车最新数据
+    const updateCart = async () => {
+        const res = await getCartApi()
+        cartList.value = res.result
+    }
 
-
-    const addCart = async(goods) => {
+    const addCart = async (goods) => {
 
         // 判断是登录
-        if (isLogin) {
-            const {skuId,count} = goods
+        if (isLogin.value) {
+            const { skuId, count } = goods
             // 加入购物车
-            await insertCartApi({skuId,count})
-            // 查询购物车列表
-            const res = await getCartApi()
-            cartList.value = res.result
+            await insertCartApi({ skuId, count })
+
+            updateCart()
+
         } else {
             // 判断购物车中是否有相同的商品
             // 如果有，就加count
@@ -74,12 +77,18 @@ export const useCartStore = defineStore('cart', () => {
             }
         }
     }
+
     // 删除购物车中的商品
-    const delCart = (skuId) => {
-        // 找到购物车中的索引
-        const index = cartList.value.findIndex((item) => item.skuId === skuId)
-        // 从index开始，删除1个
-        cartList.value.splice(index, 1)
+    const delCart = async (skuId) => {
+        if (isLogin.value) {
+            await delCartApi([skuId])
+            updateCart()
+        } else {
+            // 找到购物车中的索引
+            const index = cartList.value.findIndex((item) => item.skuId === skuId)
+            // 从index开始，删除1个
+            cartList.value.splice(index, 1)
+        }
     }
 
 

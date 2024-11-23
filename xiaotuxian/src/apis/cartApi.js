@@ -9,7 +9,6 @@ export const insertCartApi = ({skuId,count})=>{
             skuId,
             count
         }
-
     })
 }
 
@@ -17,5 +16,16 @@ export const insertCartApi = ({skuId,count})=>{
 export const getCartApi = ()=>{
     return httpInstance({
         url:'/member/cart',
+    })
+}
+
+// 删除购物车列表
+export const delCartApi = (ids)=>{
+    return httpInstance({
+        url:'/member/cart',
+        method:'DELETE',
+        data:{
+            ids
+        }
     })
 }
