@@ -1,9 +1,16 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { useUserStore } from "./user";
+import {insertCartApi,getCartApi} from '@/apis/cartApi'
+    import { formContextKey } from "element-plus";
 
 export const useCartStore = defineStore('cart', () => {
     // state
     const cartList = ref([])
+
+    // 是否登录
+    const userStore = useUserStore()
+    const isLogin = computed(() => userStore.userInfo.token)
     // 总件数和总价格
     const allCount = computed(() =>
         cartList.value.reduce((a, c) =>
@@ -29,29 +36,42 @@ export const useCartStore = defineStore('cart', () => {
 
     // 选中数量
 
-    const selectedCount = computed(()=>
-        cartList.value.filter((item)=>item.selected === true).reduce((a,c)=>a+c.count,0)
+    const selectedCount = computed(() =>
+        cartList.value.filter((item) => item.selected === true).reduce((a, c) => a + c.count, 0)
     )
 
     // 选中金额
 
-    const selectedPrice = computed(()=>
-        cartList.value.filter((item)=>item.selected === true).reduce((a,c)=>a+c.count*c.price,0)
+    const selectedPrice = computed(() =>
+        cartList.value.filter((item) => item.selected === true).reduce((a, c) => a + c.count * c.price, 0)
     )
 
     // action
-    const addCart = (goods) => {
-        // 判断购物车中是否有相同的商品
-        // 如果有，就加count
-        // 如果没有就 再加一条记录
-        const item = cartList.value.find((item) => goods.skuId === item.skuId)
-        // console.log(cartList);
 
 
-        if (item) {
-            item.count += goods.count
+    const addCart = async(goods) => {
+
+        // 判断是登录
+        if (isLogin) {
+            const {skuId,count} = goods
+            // 加入购物车
+            await insertCartApi({skuId,count})
+            // 查询购物车列表
+            const res = await getCartApi()
+            cartList.value = res.result
         } else {
-            cartList.value.push(goods)
+            // 判断购物车中是否有相同的商品
+            // 如果有，就加count
+            // 如果没有就 再加一条记录
+            const item = cartList.value.find((item) => goods.skuId === item.skuId)
+            // console.log(cartList);
+
+
+            if (item) {
+                item.count += goods.count
+            } else {
+                cartList.value.push(goods)
+            }
         }
     }
     // 删除购物车中的商品
