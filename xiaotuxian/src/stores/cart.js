@@ -95,8 +95,12 @@ export const useCartStore = defineStore('cart', () => {
     // 展示选框并修改pinia中的数据
     const displayOpt = (skuId, selected) => {
         const item = cartList.value.find((item) => item.skuId === skuId)
-
         item.selected = selected
+    }
+
+    // 清除购物车内容
+    const clearCart= ()=>{
+        cartList.value = []
     }
 
 
@@ -111,7 +115,8 @@ export const useCartStore = defineStore('cart', () => {
         displayOpt,
         addCart,
         delCart,
-        selAll
+        selAll,
+        clearCart
     }
 },
     {
