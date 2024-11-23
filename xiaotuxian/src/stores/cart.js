@@ -48,14 +48,26 @@ export const useCartStore = defineStore('cart', () => {
         )
     )
     
+    // 全选 display
+    const isAll = computed(()=>
+        cartList.value.every((item) => item.selected === true)
+    )
+
+    // 全选绑定
+
+    const selAll = (selected)=>{
+        cartList.value.forEach((item)=>item.selected=selected)
+    }
 
     return {
         cartList,
         allCount,
         allPrice,
+        isAll,
         displayOpt,
         addCart,
-        delCart
+        delCart,
+        selAll
     }
 },
     {

@@ -6,7 +6,7 @@ const cartStore = useCartStore()
 // 选中
 const singeCheck = (skuId,selected)=>{
   cartStore.displayOpt(skuId,selected)
-  // console.log(skuId,selected);
+
   
 }
 </script>
@@ -19,7 +19,7 @@ const singeCheck = (skuId,selected)=>{
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox/>
+                <el-checkbox :model-value="cartStore.isAll" @change="cartStore.selAll" />
               </th>
               <th width="400">商品信息</th>
               <th width="220">单价</th>
