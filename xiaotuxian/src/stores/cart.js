@@ -4,6 +4,40 @@ import { computed, ref } from "vue";
 export const useCartStore = defineStore('cart', () => {
     // state
     const cartList = ref([])
+    // 总件数和总价格
+    const allCount = computed(() =>
+        cartList.value.reduce((a, c) =>
+            a + c.count, 0
+        ))
+
+    const allPrice = computed(() =>
+        cartList.value.reduce((a, c) =>
+            a + c.count * c.price, 0
+        )
+    )
+
+    // 全选 display
+    const isAll = computed(() =>
+        cartList.value.every((item) => item.selected === true)
+    )
+
+    // 全选绑定
+
+    const selAll = (selected) => {
+        cartList.value.forEach((item) => item.selected = selected)
+    }
+
+    // 选中数量
+
+    const selectedCount = computed(()=>
+        cartList.value.filter((item)=>item.selected === true).reduce((a,c)=>a+c.count,0)
+    )
+
+    // 选中金额
+
+    const selectedPrice = computed(()=>
+        cartList.value.filter((item)=>item.selected === true).reduce((a,c)=>a+c.count*c.price,0)
+    )
 
     // action
     const addCart = (goods) => {
@@ -30,40 +64,21 @@ export const useCartStore = defineStore('cart', () => {
 
 
     // 展示选框并修改pinia中的数据
-    const displayOpt=(skuId,selected)=>{
-        const item = cartList.value.find((item)=>item.skuId === skuId)
-        
+    const displayOpt = (skuId, selected) => {
+        const item = cartList.value.find((item) => item.skuId === skuId)
+
         item.selected = selected
     }
 
-    // 总件数和总价格
-    const allCount = computed(() =>
-        cartList.value.reduce((a, c) =>
-            a + c.count, 0
-        ))
 
-    const allPrice = computed(()=>
-        cartList.value.reduce((a,c)=>
-            a+c.count*c.price,0
-        )
-    )
-    
-    // 全选 display
-    const isAll = computed(()=>
-        cartList.value.every((item) => item.selected === true)
-    )
-
-    // 全选绑定
-
-    const selAll = (selected)=>{
-        cartList.value.forEach((item)=>item.selected=selected)
-    }
 
     return {
         cartList,
         allCount,
         allPrice,
         isAll,
+        selectedCount,
+        selectedPrice,
         displayOpt,
         addCart,
         delCart,
