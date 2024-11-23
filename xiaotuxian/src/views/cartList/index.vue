@@ -3,6 +3,12 @@
 import { useCartStore } from '@/stores/cart';
 const cartStore = useCartStore()
 
+// 选中
+const singeCheck = (skuId,selected)=>{
+  cartStore.displayOpt(skuId,selected)
+  // console.log(skuId,selected);
+  
+}
 </script>
 
 <template>
@@ -26,7 +32,7 @@ const cartStore = useCartStore()
           <tbody>
             <tr v-for="i in cartStore.cartList" :key="i.id">
               <td>
-                <el-checkbox />
+                <el-checkbox :model-value="i.selected" @change="(selected)=>singeCheck(i.skuId,selected)" />
               </td>
               <td>
                 <div class="goods">

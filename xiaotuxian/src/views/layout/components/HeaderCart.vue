@@ -2,14 +2,14 @@
 import { useCartStore } from '@/stores/cart';
 
 const cartStore = useCartStore()
-console.log(cartStore.allPrice);
+
 
 </script>
 
 <template>
   <div class="cart">
     <a class="curr" href="javascript:;">
-      <i class="iconfont icon-cart"></i><em>2</em>
+      <i class="iconfont icon-cart" @click="$router.push('/cart')"></i><em>2</em>
     </a>
     <div class="layer">
       <div class="list">

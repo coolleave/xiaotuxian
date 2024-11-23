@@ -28,6 +28,14 @@ export const useCartStore = defineStore('cart', () => {
         cartList.value.splice(index, 1)
     }
 
+
+    // 展示选框并修改pinia中的数据
+    const displayOpt=(skuId,selected)=>{
+        const item = cartList.value.find((item)=>item.skuId === skuId)
+        
+        item.selected = selected
+    }
+
     // 总件数和总价格
     const allCount = computed(() =>
         cartList.value.reduce((a, c) =>
@@ -45,6 +53,7 @@ export const useCartStore = defineStore('cart', () => {
         cartList,
         allCount,
         allPrice,
+        displayOpt,
         addCart,
         delCart
     }
