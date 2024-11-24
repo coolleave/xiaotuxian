@@ -13,8 +13,6 @@ const getHotList = async () => {
 
 onMounted(()=>{
     getHotList()
-    console.log(hotList.value);
-    
 })
 
 </script>

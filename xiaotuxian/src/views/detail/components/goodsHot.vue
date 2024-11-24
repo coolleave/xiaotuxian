@@ -1,5 +1,5 @@
 <script setup>
-import {fetchHotGoodsAPI} from '@/apis/goodsApi'
+import { fetchHotGoodsAPI } from '@/apis/goodsApi'
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -8,38 +8,30 @@ const route = useRoute()
 
 // 使用pros接收参数
 const props = defineProps({
-    hotType:{
-        type:Number
-    }
+  hotType: {
+    type: Number
+  }
 })
-
-console.log(props);
 
 const temp = {
-    1:'24小时热榜',
-    2:'周榜'
+  1: '24小时热榜',
+  2: '周榜'
 }
-
-const title = computed(()=>temp[props.hotType]) 
-
-
+const title = computed(() => temp[props.hotType])
 const goodsHotData = {
-    id : route.params.id,
-    type :props.hotType,
+  id: route.params.id,
+  type: props.hotType,
 }
-
 const goodsHotList = ref({
-
 })
 
-
-const getGoodsHot = async()=>{
-    const res  = await fetchHotGoodsAPI(goodsHotData)
-    goodsHotList.value = res.result
+const getGoodsHot = async () => {
+  const res = await fetchHotGoodsAPI(goodsHotData)
+  goodsHotList.value = res.result
 }
 
-onMounted(()=>{
-    getGoodsHot()
+onMounted(() => {
+  getGoodsHot()
 })
 </script>
 
@@ -60,8 +52,9 @@ onMounted(()=>{
 
 <style scoped lang="scss">
 .goods-hot {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+
   h3 {
     height: 70px;
     background: $helpColor;
