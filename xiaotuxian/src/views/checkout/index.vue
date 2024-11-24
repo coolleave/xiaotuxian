@@ -11,7 +11,23 @@ onMounted(async () => {
     curAddress.value = checkInfo.value.userAddresses.find((item) => item.isDefault === 0)
 })
 
+// 控制切换地址弹窗
 const toggleFlag = ref(false)
+
+// 选中目标地址
+const toAdress = ref({})
+
+const arctiveAdress = (item)=>{
+    toAdress.value = item
+}
+
+// 确定切换地址
+const confirm = ()=>{
+    curAddress.value = toAdress.value
+    toggleFlag.value = false
+    toAdress.value = {}
+    
+}
 
 </script>
 
@@ -115,7 +131,7 @@ const toggleFlag = ref(false)
     <!-- 切换地址 -->
     <el-dialog v-model="toggleFlag" title="切换收货地址" width="30%" center>
         <div class="addressWrapper" >
-            <div class="text item" v-for="item in checkInfo.userAddresses" :key="item.id">
+            <div class="text item" :class="{active: toAdress.id === item.id }"  @click="arctiveAdress(item)" v-for="item in checkInfo.userAddresses" :key="item.id">
                 <ul>
                     <li><span>收<i />货<i />人：</span>{{ item.receiver }} </li>
                     <li><span>联系方式：</span>{{ item.contact }}</li>
@@ -126,7 +142,7 @@ const toggleFlag = ref(false)
         <template #footer>
             <span class="dialog-footer">
                 <el-button>取消</el-button>
-                <el-button type="primary">确定</el-button>
+                <el-button type="primary" @click="confirm">确定</el-button>
             </span>
         </template>
     </el-dialog>
