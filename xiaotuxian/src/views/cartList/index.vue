@@ -3,11 +3,10 @@
 import { useCartStore } from '@/stores/cart';
 const cartStore = useCartStore()
 
+
 // 选中
 const singeCheck = (skuId,selected)=>{
   cartStore.displayOpt(skuId,selected)
-
-  
 }
 </script>
 
@@ -88,6 +87,9 @@ const singeCheck = (skuId,selected)=>{
       </div>
     </div>
   </div>
+
+
+  
 </template>
 
 <style scoped lang="scss">
