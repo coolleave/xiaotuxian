@@ -50,18 +50,14 @@ const commitOrder = async () => {
         }),
         addressId: curAddress.value.id
     })
-
     const orderId = res.result.id
-
     router.push({
-        path:'pay',
-        query:{
-            id:orderId
+        path: 'pay',
+        query: {
+            id: orderId
         }
     })
-
     cartStore.updateCart()
-    
 }
 
 </script>

@@ -49,11 +49,6 @@ const router = createRouter({
           component:pay
         }
 
-        
-
-
-
-
         // {
         //   path: '/:catchAll(.*)',
         //   redirect: '/'

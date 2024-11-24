@@ -7,3 +7,9 @@ export const creatOrderApi=(data)=>{
         data
     })
 }
+
+export const getOrderInfoApi = (id)=>{
+    return httpInstance({
+        url:`/member/order/${id}`
+    })
+}
