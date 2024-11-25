@@ -182,6 +182,7 @@ const commitOrder = async () => {
 </template>
 
 <style scoped lang="scss">
+@use 'sass:color';
 .xtx-pay-checkout-page {
     margin-top: 20px;
 
@@ -383,7 +384,8 @@ const commitOrder = async () => {
         &.active,
         &:hover {
             border-color: $xtxColor;
-            background: lighten($xtxColor, 50%);
+            // background: lighten($xtxColor, 50%);
+            background: color.adjust($xtxColor, $lightness: 50%);
         }
 
         >ul {
