@@ -2,7 +2,9 @@
 import { onMounted, ref } from 'vue';
 import {getOrderInfoApi} from '@/apis/orderApi'
 import { useRoute } from 'vue-router';
+import {useCountDown} from '@/composables/countDown'
 
+const {formateTime,start} = useCountDown()
 const route = useRoute()
 const payInfo = ref({})
 
@@ -16,6 +18,8 @@ const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redire
 onMounted(async()=>{
   const res = await getOrderInfoApi(route.query.id)
   payInfo.value = res.result
+  // 倒计时初始化
+  start(res.result.countdown)
 })
 
 
@@ -30,7 +34,7 @@ onMounted(async()=>{
         <span class="icon iconfont icon-queren2"></span>
         <div class="tip">
           <p>订单提交成功！请尽快完成支付。</p>
-          <p>支付还剩 <span>24分30秒</span>, 超时后将取消订单</p>
+          <p>支付还剩 <span>{{formateTime}}</span>, 超时后将取消订单</p>
         </div>
         <div class="amount">
           <span>应付总额：</span>
