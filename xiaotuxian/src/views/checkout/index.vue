@@ -183,6 +183,7 @@ const commitOrder = async () => {
 
 <style scoped lang="scss">
 @use 'sass:color';
+
 .xtx-pay-checkout-page {
     margin-top: 20px;
 
