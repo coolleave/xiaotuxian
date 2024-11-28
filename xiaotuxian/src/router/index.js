@@ -20,39 +20,39 @@ const router = createRouter({
     {
       path: '/',
       name: 'layout',
-      component:layout,
+      component: layout,
       // 二级路由
-      children:[  
+      children: [
         {
-          path:'',  // 空为默认
-          name:'home',
-          component:home
+          path: '',  // 空为默认
+          name: 'home',
+          component: home
         },
         {
-          path:'category/:id',  // 根据id导航
-          name:'category',
-          component:category
+          path: 'category/:id',  // 根据id导航
+          name: 'category',
+          component: category
         },
         {
-          path:'category/sub/:id',  // 根据id导航
-          name:'subCategory',
-          component:subCategory
+          path: 'category/sub/:id',  // 根据id导航
+          name: 'subCategory',
+          component: subCategory
         },
         {
-          path:'detail/:id',
-          component:detail
+          path: 'detail/:id',
+          component: detail
         },
         {
-          path:'cart',
-          component:cartList
+          path: 'cart',
+          component: cartList
         },
         {
-          path:'checkout',
-          component:checkout
+          path: 'checkout',
+          component: checkout
         },
         {
           path: 'pay',
-          component:pay
+          component: pay
         },
         {
           path: 'paycallback', // 注意路径，必须是paycallback
@@ -60,16 +60,20 @@ const router = createRouter({
         },
         // 个人中心
         {
-          path:'member',
-          component:member,
-          children:[
+          path: 'member',
+          component: member,
+          children: [
             {
-              path:'user',
-              component:userInfo
+              path: 'user',
+              component: userInfo
             },
             {
-              path:'Order',
-              component:userOrder
+              path: 'Order',
+              component: userOrder
+            },
+            {
+              path: '/member',      // 匹配 /member
+              redirect: '/member/user'  // 重定向到 /member/user
             }
           ]
         }
@@ -78,25 +82,25 @@ const router = createRouter({
         //   path: '/:catchAll(.*)',
         //   redirect: '/'
         // }
-        
+
 
       ]
     },
     {
-      path:'/login',
-      name:login,
-      component:login
+      path: '/login',
+      name: login,
+      component: login
     }
 
 
- 
+
   ],
   // 配置滚动路由
-  scrollBehavior(){
-  return {
-   top:0
+  scrollBehavior() {
+    return {
+      top: 0
+    }
   }
-}
 })
 
 export default router
