@@ -9,6 +9,11 @@ import cartList from '@/views/cartList/index.vue'
 import checkout from '@/views/checkout/index.vue'
 import pay from '@/views/pay/index.vue'
 import payBack from '@/views/pay/payBack.vue'
+import member from '@/views/member/index.vue'
+import userInfo from '@/views/member/components/userInfo.vue'
+import userOrder from '@/views/member/components/userOrder.vue'
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -53,6 +58,21 @@ const router = createRouter({
           path: 'paycallback', // 注意路径，必须是paycallback
           component: payBack
         },
+        // 个人中心
+        {
+          path:'member',
+          component:member,
+          children:[
+            {
+              path:'user',
+              component:userInfo
+            },
+            {
+              path:'Order',
+              component:userOrder
+            }
+          ]
+        }
 
         // {
         //   path: '/:catchAll(.*)',
