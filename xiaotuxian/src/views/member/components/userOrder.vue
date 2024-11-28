@@ -1,5 +1,6 @@
 <script setup>
 import { getUserOrderApi } from '@/apis/member'
+import { throttledWatch } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
 // tab列表
 const tabTypes = [
@@ -20,18 +21,32 @@ const params = ref({
 })
 
 const orderList = ref([])
-onMounted(async () => {
+
+const getOrderList =async () => {
   const res = await getUserOrderApi(params.value)
   orderList.value = res.result.items
-  
-  
-})
+  total.value = res.result.counts
+}
 
+
+// tab切换
 const tabChange = async (orderState) => {
   params.value.orderState = orderState
-  const res = await getUserOrderApi(params.value)
-  orderList.value = res.result.items
+  getOrderList()
 }
+
+// 补充总条数
+const total = ref(0)
+
+// 切换页数
+const changePage = (page)=>{
+  params.value.page = page
+  console.log(params.value.page);
+  getOrderList()
+}
+onMounted(()=>getOrderList())
+
+
 </script>
 
 <template>
@@ -113,7 +128,7 @@ const tabChange = async (orderState) => {
           </div>
           <!-- 分页 -->
           <div class="pagination-container">
-            <el-pagination background layout="prev, pager, next" />
+            <el-pagination background :total="total" :page-sizes="params.pageSize" @current-change="changePage" layout="prev, pager, next" />
           </div>
         </div>
       </div>
