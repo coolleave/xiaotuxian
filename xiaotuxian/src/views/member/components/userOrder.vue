@@ -1,4 +1,6 @@
 <script setup>
+import { getUserOrderApi } from '@/apis/member'
+import { onMounted, ref } from 'vue';
 // tab列表
 const tabTypes = [
   { name: "all", label: "全部订单" },
@@ -10,7 +12,18 @@ const tabTypes = [
   { name: "cancel", label: "已取消" }
 ]
 // 订单列表
-const orderList = []
+
+const params = ref({
+  orderState: 0,
+  page: 1,
+  pageSize: 2
+})
+
+const orderList = ref([])
+onMounted(async () => {
+  const res = await getUserOrderApi(params.value)
+  orderList.value = res.result.items
+})
 
 </script>
 
@@ -33,7 +46,7 @@ const orderList = []
               <!-- 未付款，倒计时时间还有 -->
               <span class="down-time" v-if="order.orderState === 1">
                 <i class="iconfont icon-down-time"></i>
-                <b>付款截止: {{order.countdown}}</b>
+                <b>付款截止: {{ order.countdown }}</b>
               </span>
             </div>
             <div class="body">
@@ -74,8 +87,7 @@ const orderList = []
                 <p>在线支付</p>
               </div>
               <div class="column action">
-                <el-button  v-if="order.orderState === 1" type="primary"
-                  size="small">
+                <el-button v-if="order.orderState === 1" type="primary" size="small">
                   立即付款
                 </el-button>
                 <el-button v-if="order.orderState === 3" type="primary" size="small">
@@ -198,6 +210,13 @@ const orderList = []
               width: 70px;
               height: 70px;
               border: 1px solid #f5f5f5;
+            }
+
+            .image img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              /* 使图片覆盖整个父容器，保持比例 */
             }
 
             .info {
